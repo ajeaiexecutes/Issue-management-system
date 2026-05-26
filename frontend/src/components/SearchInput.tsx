@@ -25,6 +25,12 @@ export function SearchInput({ initialSearch }: { initialSearch: string }) {
     timeoutRef.current = setTimeout(() => {
       startTransition(() => {
         const params = new URLSearchParams(searchParams.toString());
+        
+        // CRITICAL FIX: Break the infinite loop!
+        // If the URL already has the correct search term, do not push again.
+        const currentUrlSearch = params.get("search") || "";
+        if (query === currentUrlSearch) return;
+
         if (query) {
           params.set("search", query);
         } else {
@@ -33,7 +39,7 @@ export function SearchInput({ initialSearch }: { initialSearch: string }) {
         
         router.push(`/?${params.toString()}`);
       });
-    }, 300); // 300ms debounce
+    }, 300);
 
     return () => clearTimeout(timeoutRef.current);
   }, [query, router, searchParams]);

@@ -18,6 +18,9 @@ export default async function Dashboard({
   const resolvedParams = await searchParams;
   const currentStatus = resolvedParams.status;
   const currentSearch = resolvedParams.search;
+  
+
+  
   const issues = await fetchIssues(currentStatus, currentSearch);
 
   return (

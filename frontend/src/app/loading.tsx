@@ -7,10 +7,10 @@ export default function Loading() {
   const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
-    // Show toast after 20 seconds to explain Render sleep mode
+    // Show toast after 5 seconds to explain Render sleep mode
     const timer = setTimeout(() => {
       setShowToast(true);
-    }, 20000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, []);
